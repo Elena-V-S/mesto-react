@@ -1,0 +1,6 @@
+@import url('./__list/elements__list.css');
+.elements {
+    max-width: 882px;
+    width: 100%;
+    margin: 0 auto;
+}
