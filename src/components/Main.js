@@ -1,32 +1,66 @@
 import React from 'react';
 import logoImg from '../images/image-avatar.jpg';
+import api from '../utils/Api';
+import Card from './Card';
 
-function Main({ handleEditAvatarClick, 
-    handleEditProfileClick, 
-    handleAddPlaceClick }) {
-        
+
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
+      // Хук, управляющий внутренним состоянием.
+      const [userName, setUserName] = React.useState('Жак-Ив Кусто');
+      const [userDescription, setUserDescription] = React.useState('Исследователь океана');
+      const [userAvatar, setUserAvatar] = React.useState(logoImg);
+      const [cards, setCards] = React.useState([]);
+
+    React.useEffect(() => {
+        api.getUserData().then(res => {
+            setUserName(res.name)
+            setUserDescription(res.about)
+            setUserAvatar(res.avatar)
+        })
+      }, []);
+
+   
+      React.useEffect(() => {
+        api.getInitialCards().then(res => setCards(res))
+      }, []);
+     
   return (
     <main className="content">
             <section className="profile">
                 <div className="profile__avatar">
-                    <img className="profile__avatar-img" src={logoImg} alt="фото" onClick={handleEditAvatarClick}/>
-                    {/* <button type="button" className="profile__avatar-update" onClick={handleEditAvatarClick}></button> */}
+                    <div className="profile__avatar-img" style={{ backgroundImage: `url(${userAvatar})` }} alt="фото" onClick={onEditAvatar} />
                 </div>
                 <div className="profile__content">
                     <div className="profile__info">
                         <div className="profile__person">
-                            <h1 className="profile__name">Жак-Ив Кусто</h1>
-                            <button className="profile__edit profile__button" onClick={handleEditProfileClick} type="button"></button>
+                            <h1 className="profile__name">{userName}</h1>
+                            <button className="profile__edit profile__button" onClick={onEditProfile} type="button"></button>
                         </div>
-                        <p className="profile__activity">Исследователь океана</p>
+                        <p className="profile__activity">{userDescription}</p>
                     </div>
-                    <button type="button" className="profile__card-edit profile__button" onClick={handleAddPlaceClick} ></button>
+                    <button type="button" className="profile__card-edit profile__button" onClick={onAddPlace} ></button>
                 </div>
             </section>
         
             <section className="elements">
                 <ul className="elements__list">
-                  
+                {cards.map((card, i) => <Card key={i} card={card} onCardClick={onCardClick} />)}
+                {/* {cards.map(({_id, name, link, likes}) => (
+                    
+                        <li key={_id} className="card">
+                            <figure className="card__group">
+                                <img className="card__image" alt="фото" src={link} onClick={onCardClick}/>'
+                                <button type="button" className="card__delete"></button>
+                                <figcaption className="card__description">
+                                  <h3 className="card__title" >{name}</h3>
+                                  <div className='card__like-group'>
+                                    <button type="button" className="card__like"></button>
+                                    <did className='card__like-counter'>{likes.length}</did>
+                                  </div>
+                                </figcaption>
+                            </figure>
+                        </li>
+                ))} */}
                 </ul>
             </section>
         </main>  
