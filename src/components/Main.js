@@ -12,16 +12,21 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
       const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
-        api.getUserData().then(res => {
+        api.getUserData()
+        .then(res => {
             setUserName(res.name)
             setUserDescription(res.about)
-            setUserAvatar(res.avatar)
-        })
+            setUserAvatar(res.avatar)})
+        .catch ((err) => {
+            console.log(`Ошибка: ${err}`)});
       }, []);
 
    
       React.useEffect(() => {
-        api.getInitialCards().then(res => setCards(res))
+        api.getInitialCards()
+        .then(res => setCards(res))
+        .catch ((err) => {
+            console.log(`Ошибка: ${err}`)});
       }, []);
      
   return (
@@ -45,22 +50,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
             <section className="elements">
                 <ul className="elements__list">
                 {cards.map((card, i) => <Card key={i} card={card} onCardClick={onCardClick} />)}
-                {/* {cards.map(({_id, name, link, likes}) => (
-                    
-                        <li key={_id} className="card">
-                            <figure className="card__group">
-                                <img className="card__image" alt="фото" src={link} onClick={onCardClick}/>'
-                                <button type="button" className="card__delete"></button>
-                                <figcaption className="card__description">
-                                  <h3 className="card__title" >{name}</h3>
-                                  <div className='card__like-group'>
-                                    <button type="button" className="card__like"></button>
-                                    <did className='card__like-counter'>{likes.length}</did>
-                                  </div>
-                                </figcaption>
-                            </figure>
-                        </li>
-                ))} */}
                 </ul>
             </section>
         </main>  

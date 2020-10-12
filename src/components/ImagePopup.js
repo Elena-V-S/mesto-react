@@ -9,7 +9,7 @@ function ImagePopup({card, onClose}) {
             <figure className="popup-image__group">
                 <img src={card.link} alt={card.alt} className="popup-image__img"/>
                 <figcaption className="popup-image__description">
-                    <h3 className="popup-image__title"></h3>
+                    <h3 className="popup-image__title">{card.name}</h3>
                 </figcaption>
             </figure>
         </div>

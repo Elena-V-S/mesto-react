@@ -32,7 +32,7 @@ function App() {
         setIsEditAvatarPopupOpen(false);
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
-        setSelectedCard(false);
+        setSelectedCard({});
     }
 
 
@@ -55,7 +55,7 @@ function App() {
           <span id="name-input-error" className="form__input-error form__input-error_active"></span>
         </label>    
         <label className="form__label">    
-          <input id="activity-input" type="text" className="form__input form__input_type_activity" name="about" placeholder="профессия" maxLength="2" maxLength="200" required/>
+          <input id="activity-input" type="text" className="form__input form__input_type_activity" name="about" placeholder="профессия" minLength="2" maxLength="200" required/>
           <span id="activity-input-error" className="form__input-error form__input-error_active"></span>
         </label>
        </>
