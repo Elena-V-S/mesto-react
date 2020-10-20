@@ -4,7 +4,7 @@
     height: 120px;
     border-radius: 50%;
     position: relative;
-    background-size: contain;
+    background-size: cover;
 }
 .profile__avatar-img::before {
     display: block;
